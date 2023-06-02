@@ -18,51 +18,30 @@ import numpy as np
 def c(T, i, j, memo):
 
     # "Protection"
-    # Si déjà dans memo, on retourne tout de suite
     if (i, j) in memo:
         return memo[(i, j)]
         
-    # 2 cas d'arrêts (spécifiques à ce problème), qu'on peut mémoiser aussi
+    # 2 base cases (problem specific)
     if i == j == 0:
-        memo[(i, j)] = T[0, 0], None
+        memo[(i, j)] = T[0, 0]
         return memo[(i, j)]
     
     if i < 0 or j < 0:
-        memo[(i, j)] = float('inf'), None
+        memo[(i, j)] = float('inf')
         return memo[(i, j)]
     
-    # Récursion
-    cost_right = c(T, i - 1, j, memo)[0]
-    cost_down = c(T, i, j - 1, memo)[0]
-    
-    if cost_right < cost_down:
-        memo[(i, j)] = (T[i, j] + cost_right, (i - 1, j))
-    else:
-        memo[(i, j)] = (T[i, j] + cost_down, (i, j - 1))
+    # Recursion (Bellman)
+    memo[(i, j)] = T[i, j] + min(c(T, i - 1, j, memo), c(T, i, j - 1, memo))
 
     return memo[(i, j)]
-
-
-def backtracking(memo, i, j):
-    path = []
-    ij = (i, j)
-    while ij is not None:
-        path.append(ij)
-        _, ij = memo[ij]
-    path.reverse()    
-    return np.array(path)
-    
 
 n = int(input("n = "))
 p = int(input("p = "))
 T = np.random.rand(n, p)
 
-memo = {}
-min_cost = c(T, n - 1, p - 1, memo)
-path = backtracking(memo, n - 1, p - 1)
+min_cost = c(T, n - 1, p - 1, memo={})
 
-print(f"Coût minimal: {min_cost}")
+print(f"Minimal cost: {min_cost}")
 plt.imshow(T, cmap='gray')
-plt.plot(path[:, 1], path[:, 0], 'r-')
 plt.colorbar()
 plt.show()
