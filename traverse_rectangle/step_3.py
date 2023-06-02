@@ -29,7 +29,7 @@ def c(T, i, j, memo):
     return memo[(i, j)]
 
 
-def backtracking(memo, i, j):
+def reconstruct_minimizer(memo, i, j):
     path = []
     ij = (i, j)
     while ij is not None:
@@ -45,7 +45,7 @@ T = np.random.rand(n, p)
 
 memo = {}
 min_cost = c(T, n - 1, p - 1, memo)
-path = backtracking(memo, n - 1, p - 1)
+path = reconstruct_minimizer(memo, n - 1, p - 1)
 
 print(f"Minimal cost: {min_cost}")
 plt.imshow(T, cmap='gray')

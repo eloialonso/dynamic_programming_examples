@@ -24,7 +24,7 @@ def c(k, s, memo):
     return memo[(k, s)]
 
 
-def backtracking(memo, s, coins):
+def reconstruct_minimizer(memo, s, coins):
     change = []
     k = len(coins)
     while s != 0:
@@ -40,7 +40,7 @@ coins = [200, 100, 50, 20, 10, 5, 2, 1]
 
 memo = {}
 min_number_coins = c(len(coins), s, memo)[0]
-change = backtracking(memo, s, coins)
+change = reconstruct_minimizer(memo, s, coins)
 
 assert sum(change) == s
 print(f'{min_number_coins} coins are necessary: {s} = {" + ".join(map(str, change))}')
