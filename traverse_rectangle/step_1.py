@@ -1,16 +1,3 @@
-"""
-Rappel des étapes : 
-
-1) Coder la récursion (Bellman) sans chercher à mémoïser ni à faire le backtracking (on cherche le min, pas l'argmin).
-Cela nécessite probablement de réduire la taille du problème (taille de la matrice ici).
-
-2) Faire le backtracking : sans toucher la récurrence, il suffit de stocker l'état d'avant dans le memo, afin de pouvoir reconstituer le chemin optimal une fois qu'on a fini.
-
-3) Mémoïser, et vérifier que cela permet de résoudre des problèmes plus gros.
-
-"""
-
-
 import matplotlib.pyplot as plt
 import numpy as np
 
